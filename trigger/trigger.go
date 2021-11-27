@@ -17,6 +17,7 @@ package trigger
 import (
 	"context"
 	"runtime/debug"
+	"runtime"
 	"strings"
 	"time"
 
@@ -407,10 +408,10 @@ func (t *triggerer) Trigger(ctx context.Context, repo *core.Repository, base *co
 			stage.Type = "docker"
 		}
 		if stage.OS == "" {
-			stage.OS = "linux"
+			stage.OS = runtime.GOOS
 		}
 		if stage.Arch == "" {
-			stage.Arch = "amd64"
+			stage.Arch = runtime.GOARCH
 		}
 
 		if stage.Name == "" {
